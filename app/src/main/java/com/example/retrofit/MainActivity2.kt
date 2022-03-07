@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.example.retrofit.dto.SixtyMinuteCandleDTO
 import com.example.retrofit.retrofit.RetrofitManager
 import com.example.retrofit.retrofit.RetrofitManagerForUpbit
+import com.example.retrofit.service.Lond
 import com.example.retrofit.uitls.RESPONSE_STATE
 
 class MainActivity2 : AppCompatActivity() {
@@ -20,22 +21,32 @@ class MainActivity2 : AppCompatActivity() {
         var sixtyMinCandleDTO: SixtyMinuteCandleDTO = SixtyMinuteCandleDTO()
 
         btn_search.setOnClickListener {
-            RetrofitManagerForUpbit.instance.getSixtyMinuteCandle("KRW-BTC",200, completion = {
+            RetrofitManagerForUpbit.instance.getSixtyMinuteCandle("KRW-BTC",10, completion = {
                     responseState, responseBody ->
                 when(responseState) {
                     RESPONSE_STATE.OKAY -> {
-                        Toast.makeText(this,"Api 호출 성공. :$responseBody", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Api 호출 성공. :", Toast.LENGTH_SHORT).show()
                         sixtyMinCandleDTO = responseBody
-                        println(sixtyMinCandleDTO)
                     }
 
                     RESPONSE_STATE.FAIL -> {
                         Toast.makeText(this,"Api 호출 에러입니다.: ", Toast.LENGTH_SHORT).show()
                     }
-
                 }
             })
         }
+
+
+        var button = findViewById<Button>(R.id.button2)
+        button.setOnClickListener {
+            var load = Lond(sixtyMinCandleDTO)
+            var res = load.setReturns(sixtyMinCandleDTO)
+            print(res.toString())
+        }
+
+
+
+
     }
 
 
