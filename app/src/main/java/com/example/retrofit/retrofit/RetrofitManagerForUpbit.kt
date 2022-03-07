@@ -21,7 +21,7 @@ class RetrofitManagerForUpbit {
     private val iRetrofitManagerForUpbit: IUpbit? = RetrofitClientForUpbit.getClient(UPBIT_API.BASE_URL)?.create(IUpbit::class.java)
 
     //사진 검색 api 호출
-    fun getSixtyMinuteCandle(market: String?, count: Int?, completion: (RESPONSE_STATE, String) -> Unit) {
+    fun getSixtyMinuteCandle(market: String?, count: Int?, completion: (RESPONSE_STATE, SixtyMinuteCandleDTO) -> Unit) {
 //        val to = to.let { it }?:""
 
         val call = iRetrofitManagerForUpbit?.getSixtyMinCandle(market!!, count!!) ?:return
@@ -29,13 +29,13 @@ class RetrofitManagerForUpbit {
         call.enqueue(object : retrofit2.Callback<SixtyMinuteCandleDTO>{
             override fun onResponse(call: Call<SixtyMinuteCandleDTO>, response: Response<SixtyMinuteCandleDTO>) {
                 Log.d(TAG, "RestoriftManager - onResponse() called / response ${response.body().toString()}")
-                completion(RESPONSE_STATE.OKAY, response.body().toString())
+                response.body()?.let { completion(RESPONSE_STATE.OKAY, it) }
                 println("=========")
             }
 
             override fun onFailure(call: Call<SixtyMinuteCandleDTO>, t: Throwable) {
                 Log.d(TAG, "RetrofitManager - onFailure() called / t: $t")
-                completion(RESPONSE_STATE.FAIL, t.toString())
+                completion(RESPONSE_STATE.FAIL, SixtyMinuteCandleDTO())
             }
 
         })
