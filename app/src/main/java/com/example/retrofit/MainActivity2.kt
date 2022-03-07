@@ -40,8 +40,10 @@ class MainActivity2 : AppCompatActivity() {
         var button = findViewById<Button>(R.id.button2)
         button.setOnClickListener {
             var load = Lond(sixtyMinCandleDTO)
-            var res = load.setReturns(sixtyMinCandleDTO)
-            print(res.toString())
+             load.setReturns()
+            println("=================")
+            print(load.setReturns().toString())
+            println("=================")
         }
 
 
