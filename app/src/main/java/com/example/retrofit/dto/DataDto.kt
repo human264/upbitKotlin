@@ -10,6 +10,7 @@ data class DataDto(
     var low: Double?,
     var close: Double?,
     var returns: Double?,
-    val volume: Double?
+    var creturns: Double?,
+    var volume: Double?
 
 )

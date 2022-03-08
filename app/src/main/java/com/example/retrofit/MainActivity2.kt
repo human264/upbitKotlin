@@ -40,9 +40,9 @@ class MainActivity2 : AppCompatActivity() {
         var button = findViewById<Button>(R.id.button2)
         button.setOnClickListener {
             var load = Lond(sixtyMinCandleDTO)
-             load.setReturns()
+             load.setValueInitialized()
             println("=================")
-            print(load.setReturns().toString())
+            print(load.setValueInitialized().toString())
             println("=================")
         }
 
